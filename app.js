@@ -60,13 +60,34 @@ function loadSettings() {
 
 function applySettings() {
   SALON = salonSettings.salonName;
+
+  // Greeting
   const ownerEl = document.getElementById('ownerName');
   if (ownerEl) ownerEl.textContent = salonSettings.ownerName;
-  const sName = document.getElementById('s_name');   if (sName)   sName.value   = salonSettings.salonName;
-  const sOwner= document.getElementById('s_owner');  if (sOwner)  sOwner.value  = salonSettings.ownerName;
-  const sPhone= document.getElementById('s_phone');  if (sPhone)  sPhone.value  = salonSettings.phone;
-  const sAddr = document.getElementById('s_address');if (sAddr)   sAddr.value   = salonSettings.address;
-  const sGoogle=document.getElementById('s_google'); if (sGoogle) sGoogle.value = salonSettings.googleLink;
+
+  // Sidebar user card
+  const sidebarName = document.getElementById('sidebarUserName');
+  if (sidebarName) sidebarName.textContent = salonSettings.ownerName;
+  const sidebarRole = document.getElementById('sidebarUserRole');
+  if (sidebarRole) sidebarRole.textContent = salonSettings.salonName + ' · Premium';
+  const sidebarAv = document.getElementById('sidebarAvatar');
+  if (sidebarAv) {
+    const parts = salonSettings.ownerName.trim().split(' ');
+    sidebarAv.textContent = parts.length >= 2
+      ? (parts[0][0] + parts[1][0]).toUpperCase()
+      : salonSettings.ownerName.substring(0, 2).toUpperCase();
+  }
+
+  // Topbar subtitle on mobile (show salon name under app name)
+  const topbarSub = document.getElementById('topbarSub');
+  if (topbarSub) topbarSub.textContent = salonSettings.salonName;
+
+  // Form inputs in Settings
+  const sName  = document.getElementById('s_name');   if (sName)   sName.value   = salonSettings.salonName;
+  const sOwner = document.getElementById('s_owner');  if (sOwner)  sOwner.value  = salonSettings.ownerName;
+  const sPhone = document.getElementById('s_phone');  if (sPhone)  sPhone.value  = salonSettings.phone;
+  const sAddr  = document.getElementById('s_address');if (sAddr)   sAddr.value   = salonSettings.address;
+  const sGoogle= document.getElementById('s_google'); if (sGoogle) sGoogle.value = salonSettings.googleLink;
 }
 
 function saveSettings() {
@@ -452,9 +473,26 @@ function saveAppt() {
 
   appointments.push(a);
   appointments.sort((x, y) => (x.date + x.time).localeCompare(y.date + y.time));
+
+  // Adaugă clientul în lista de clienți dacă nu există deja
+  const AVATAR_COLORS = ['#5b7a4f','#b8593f','#a07a2c','#c47878','#4f7a7a','#7a4f6a'];
+  if (!clients.find(c => c.name === name)) {
+    clients.push({
+      name, phone,
+      visits: 0, totalSpent: 0,
+      last: '—', daysSince: 0,
+      vip: false,
+      status: a.newClient ? 'new' : 'active',
+      color: AVATAR_COLORS[clients.length % AVATAR_COLORS.length]
+    });
+  }
+
   closeModal();
   if (activeView === 'dashboard')    renderDashboard();
   if (activeView === 'appointments') renderAllAppts();
+  if (activeView === 'clients')      renderAllClients('all');
+  renderTopClients();
+  updateApptBadge();
   showToast('Programare adăugată ✓');
 }
 
