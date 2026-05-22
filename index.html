@@ -1,0 +1,810 @@
+<!DOCTYPE html>
+<html lang="ro" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<title>Aurora — Salon OS</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- ===== TOPBAR (Mobile) ===== -->
+<header class="topbar">
+  <div class="topbar-logo">A</div>
+  <span class="topbar-title">Aurora</span>
+  <button class="mode-toggle" id="modeToggle" title="Schimbă tema">☀️</button>
+</header>
+
+<!-- ===== SIDEBAR (Desktop) ===== -->
+<nav class="sidebar">
+  <div class="sidebar-brand">
+    <div class="sidebar-logo">A</div>
+    <div>
+      <div class="sidebar-app-name">Aurora</div>
+      <div class="sidebar-app-sub">Salon OS</div>
+    </div>
+  </div>
+
+  <div class="sidebar-section">Operațional</div>
+  <button class="sidebar-item active" data-view="dashboard">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="9" rx="1"/><rect x="14" y="3" width="7" height="5" rx="1"/><rect x="14" y="12" width="7" height="9" rx="1"/><rect x="3" y="16" width="7" height="5" rx="1"/></svg>
+    Panou
+  </button>
+  <button class="sidebar-item" data-view="appointments">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+    Programări
+    <span class="sidebar-badge" id="sidebarBadge">3</span>
+  </button>
+  <button class="sidebar-item" data-view="clients">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+    Clienți
+  </button>
+
+  <div class="sidebar-section">Creștere</div>
+  <button class="sidebar-item" data-view="campaigns">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 11l18-8-8 18-2-8-8-2z"/></svg>
+    Campanii
+  </button>
+  <button class="sidebar-item" data-view="analytics">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+    Analiză
+  </button>
+
+  <div class="sidebar-section">Configurare</div>
+  <button class="sidebar-item" data-view="templates">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+    Mesaje șablon
+  </button>
+  <button class="sidebar-item" data-view="settings">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+    Setări salon
+  </button>
+
+  <div class="sidebar-bottom">
+    <div class="sidebar-user">
+      <div class="sidebar-avatar">MS</div>
+      <div>
+        <div class="sidebar-user-name">Maria Stancu</div>
+        <div class="sidebar-user-role">Salon Aurora · Premium</div>
+      </div>
+    </div>
+    <button class="sidebar-mode-toggle" id="sidebarModeToggle">
+      <span class="sidebar-mode-icon" id="sidebarModeIcon">☀️</span>
+      <span id="sidebarModeLabel">Mod întunecat</span>
+    </button>
+  </div>
+</nav>
+
+<!-- ===== MAIN CONTENT ===== -->
+<div class="content">
+
+  <!-- ============ DASHBOARD ============ -->
+  <div class="view active" id="view-dashboard">
+    <div class="page-header">
+      <div>
+        <div class="page-meta" id="dateLabel">Joi, 22 mai</div>
+        <div class="page-title">Bună dimineața, <em>Maria</em></div>
+        <div class="page-sub">Panoul tău de astăzi — totul la un click distanță.</div>
+      </div>
+      <div class="page-actions">
+        <button class="btn btn-secondary btn-sm" onclick="openModal('addAppt')">
+          <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          Programare nouă
+        </button>
+      </div>
+    </div>
+
+    <!-- Hero CTA -->
+    <div id="heroCta"></div>
+
+    <!-- KPI Grid -->
+    <div class="kpi-grid">
+      <div class="kpi kpi-accent">
+        <div class="kpi-label">Venit săptămâna</div>
+        <div class="kpi-value">8.450 <span class="kpi-unit">lei</span></div>
+        <div class="kpi-delta up">↑ 12% vs săpt. trecută</div>
+      </div>
+      <div class="kpi kpi-green">
+        <div class="kpi-label">Recuperat din no-show</div>
+        <div class="kpi-value">1.400 <span class="kpi-unit">lei</span></div>
+        <div class="kpi-delta up">7 neprezentări evitate</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-label">Rată confirmare</div>
+        <div class="kpi-value">89<span class="kpi-unit">%</span></div>
+        <div class="kpi-delta up">↑ 23% față de înainte</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-label">Clienți activi</div>
+        <div class="kpi-value">142</div>
+        <div class="kpi-delta up">+12 luna asta</div>
+      </div>
+    </div>
+
+    <!-- Mobile: stacked, Desktop: 2-column -->
+    <div id="dashboardContent">
+      <!-- Appointments list (tomorrow) -->
+      <div class="group-label">Programări mâine</div>
+      <div class="section">
+        <div class="card">
+          <div class="card-header">
+            <div>
+              <div class="card-title" id="tomorrowLabel">Vineri, 23 mai · 6 programări</div>
+              <div class="card-sub">Apasă pentru detalii · verde WhatsApp pentru mesaj</div>
+            </div>
+          </div>
+          <div class="filter-row" id="dashFilters">
+            <button class="filter-pill active" data-f="all">Toate</button>
+            <button class="filter-pill" data-f="pending">Neconfirmate</button>
+            <button class="filter-pill" data-f="risk">Risc ridicat</button>
+          </div>
+          <div id="apptList"></div>
+        </div>
+      </div>
+
+      <!-- Sidebar widgets (on desktop these appear in right column) -->
+      <div class="group-label">Această săptămână</div>
+      <div class="section">
+        <div class="card">
+          <div class="card-header">
+            <div>
+              <div class="card-title">Venit săptămânal</div>
+              <div class="card-sub">8.450 lei · ↑ 12%</div>
+            </div>
+          </div>
+          <div style="padding: 16px 0 4px;">
+            <div class="revenue-bars-row" id="revenueBars"></div>
+            <div class="revenue-days-row">
+              <div class="revenue-day">L</div><div class="revenue-day">M</div><div class="revenue-day">M</div>
+              <div class="revenue-day">J</div><div class="revenue-day">V</div><div class="revenue-day">S</div><div class="revenue-day">D</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="group-label">Top clienți</div>
+      <div class="section">
+        <div class="card">
+          <div id="topClients"></div>
+        </div>
+      </div>
+
+      <!-- Smart insight -->
+      <div class="group-label">Sugestie Aurora</div>
+      <div class="section">
+        <div class="insight-card">
+          <div class="insight-eyebrow">💡 Oportunitate</div>
+          <div class="insight-title">8 cliente nu au mai venit de 60+ zile</div>
+          <div class="insight-sub">O campanie de reactivare poate aduce 4-5 înapoi. Estimat: ~900 lei venit recuperat.</div>
+          <button class="btn btn-primary btn-sm" onclick="switchView('campaigns')">
+            <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M3 11l18-8-8 18-2-8-8-2z"/></svg>
+            Lansează campania →
+          </button>
+        </div>
+      </div>
+      <div class="section-spacer"></div>
+    </div>
+  </div>
+
+  <!-- ============ APPOINTMENTS ============ -->
+  <div class="view" id="view-appointments">
+    <div class="page-header">
+      <div>
+        <div class="page-meta">Operațional</div>
+        <div class="page-title">Toate <em>programările</em></div>
+        <div class="page-sub">Confirmări · avansuri · comunicare directă</div>
+      </div>
+      <div class="page-actions">
+        <button class="btn btn-secondary btn-sm" onclick="openModal('addAppt')">+ Adaugă</button>
+        <button class="btn btn-primary btn-sm" onclick="sendAllUnconfirmed()">
+          <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 2L11 13"/><path d="M22 2l-7 20-4-9-9-4 20-7z"/></svg>
+          Trimite toate
+        </button>
+      </div>
+    </div>
+
+    <div class="filter-row" id="allFilters">
+      <button class="filter-pill active" data-f="all">Toate</button>
+      <button class="filter-pill" data-f="today">Astăzi</button>
+      <button class="filter-pill" data-f="tomorrow">Mâine</button>
+      <button class="filter-pill" data-f="pending">Neconfirmate</button>
+      <button class="filter-pill" data-f="risk">Risc ridicat</button>
+      <button class="filter-pill" data-f="deposit">Avans cerut</button>
+      <button class="filter-pill" data-f="confirmed">Confirmate</button>
+    </div>
+    <div class="section">
+      <div class="card">
+        <div id="apptListFull"></div>
+      </div>
+    </div>
+    <div class="section-spacer"></div>
+  </div>
+
+  <!-- ============ CLIENTS ============ -->
+  <div class="view" id="view-clients">
+    <div class="page-header">
+      <div>
+        <div class="page-meta">Baza ta de clienți</div>
+        <div class="page-title">Clienții <em>tăi</em></div>
+        <div class="page-sub">142 active · 34 VIP · 8 inactive (60+ zile)</div>
+      </div>
+      <div class="page-actions">
+        <input class="form-input" placeholder="Caută..." style="width:180px;padding:8px 12px;font-size:14px;" oninput="filterClients(this.value)">
+        <button class="btn btn-primary btn-sm">+ Client nou</button>
+      </div>
+    </div>
+
+    <div class="group-label">Segmente</div>
+    <div class="section">
+      <div class="segment-grid">
+        <div class="segment-card" onclick="switchView('campaigns')" style="cursor:pointer;">
+          <div class="segment-icon" style="background:var(--orange-bg);">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="var(--orange)" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          </div>
+          <div class="segment-count" style="color:var(--orange);">34</div>
+          <div class="segment-label">clienți</div>
+          <div class="segment-name">VIP</div>
+        </div>
+        <div class="segment-card" onclick="switchView('campaigns')" style="cursor:pointer;">
+          <div class="segment-icon" style="background:var(--green-bg);">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="var(--green)" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+          </div>
+          <div class="segment-count" style="color:var(--green);">76</div>
+          <div class="segment-label">clienți</div>
+          <div class="segment-name">Regulari</div>
+        </div>
+        <div class="segment-card" onclick="switchView('campaigns')" style="cursor:pointer;">
+          <div class="segment-icon" style="background:var(--red-bg);">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="var(--red)" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+          </div>
+          <div class="segment-count" style="color:var(--red);">8</div>
+          <div class="segment-label">clienți</div>
+          <div class="segment-name">Inactive 60d</div>
+        </div>
+        <div class="segment-card">
+          <div class="segment-icon" style="background:var(--blue-bg);">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="var(--blue)" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          </div>
+          <div class="segment-count" style="color:var(--blue);">24</div>
+          <div class="segment-label">clienți</div>
+          <div class="segment-name">Noi (30d)</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="group-label">Toți clienții</div>
+    <div class="section">
+      <div class="card">
+        <div class="filter-row" id="clientFilters">
+          <button class="filter-pill active" data-f="all">Toți</button>
+          <button class="filter-pill" data-f="vip">VIP</button>
+          <button class="filter-pill" data-f="inactive">Inactivi</button>
+        </div>
+        <div id="clientList"></div>
+      </div>
+    </div>
+    <div class="section-spacer"></div>
+  </div>
+
+  <!-- ============ CAMPAIGNS ============ -->
+  <div class="view" id="view-campaigns">
+    <div class="page-header">
+      <div>
+        <div class="page-meta">Creștere și fidelizare</div>
+        <div class="page-title">Campanii <em>WhatsApp</em></div>
+        <div class="page-sub">Mesajele care aduc clienții înapoi automat</div>
+      </div>
+      <div class="page-actions">
+        <button class="btn btn-primary btn-sm">+ Campanie nouă</button>
+      </div>
+    </div>
+
+    <div class="tabs-row" id="campaignTabs">
+      <button class="tab-btn active" data-tab="active">Active <span class="text-muted" style="font-size:12px;margin-left:3px;">3</span></button>
+      <button class="tab-btn" data-tab="auto">Automate <span class="text-muted" style="font-size:12px;margin-left:3px;">5</span></button>
+      <button class="tab-btn" data-tab="completed">Completate</button>
+    </div>
+
+    <div class="section mt-16">
+      <!-- Campaign 1 -->
+      <div class="card">
+        <div class="card-header">
+          <div>
+            <div class="card-title">Reactivare clienți inactivi</div>
+            <div class="card-sub">Activă · 8 destinatari · Recomandat de Aurora</div>
+          </div>
+          <span class="tag tag-accent">Recomandat</span>
+        </div>
+        <div style="padding:14px 16px 4px;">
+          <div class="wa-bg">
+            <div class="wa-bubble">Bună, Andreea! 💛 Ne-am amintit de tine — au trecut 2 luni de când ne-am văzut. Îți oferim 15% reducere la următoarea programare. Valabilă 14 zile. Te aștept! — Salonul Aurora</div>
+            <div class="wa-time">11:30 ✓✓</div>
+          </div>
+        </div>
+        <div style="padding:0 16px 14px;">
+          <div class="campaign-stat"><span class="campaign-stat-label">Trimise</span><span class="campaign-stat-val">8 din 8</span></div>
+          <div class="campaign-stat"><span class="campaign-stat-label">Răspunsuri</span><span class="campaign-stat-val text-green">5 (63%)</span></div>
+          <div class="campaign-stat"><span class="campaign-stat-label">Programări generate</span><span class="campaign-stat-val text-accent">3 = 540 lei ↑</span></div>
+        </div>
+      </div>
+
+      <div class="card mt-12">
+        <div class="card-header">
+          <div>
+            <div class="card-title">Ziua de naștere</div>
+            <div class="card-sub">Automată · lunar</div>
+          </div>
+          <span class="tag tag-orange">Fidelizare</span>
+        </div>
+        <div style="padding:14px 16px 4px;">
+          <div class="wa-bg">
+            <div class="wa-bubble">La mulți ani, Maria! 🎂 Pentru ziua ta, îți oferim un tratament de păr GRATUIT la următoarea programare. Te aștept! — Salonul Aurora</div>
+            <div class="wa-time">09:00 ✓✓</div>
+          </div>
+        </div>
+        <div style="padding:0 16px 14px;">
+          <div class="campaign-stat"><span class="campaign-stat-label">Luna asta</span><span class="campaign-stat-val">4 trimise</span></div>
+          <div class="campaign-stat"><span class="campaign-stat-label">Răspunsuri</span><span class="campaign-stat-val text-green">4 (100%)</span></div>
+          <div class="campaign-stat"><span class="campaign-stat-label">Programări generate</span><span class="campaign-stat-val text-accent">3</span></div>
+        </div>
+      </div>
+
+      <div class="card mt-12">
+        <div class="card-header">
+          <div>
+            <div class="card-title">Reminder întreținere</div>
+            <div class="card-sub">Automată · la 5 săptămâni după ultima vizită</div>
+          </div>
+          <span class="tag tag-blue">Recurentă</span>
+        </div>
+        <div style="padding:14px 16px 4px;">
+          <div class="wa-bg">
+            <div class="wa-bubble">Bună, Elena! 💜 Au trecut 5 săptămâni de la ultimul vopsit — vrei să-ți rezerv un loc săptămâna viitoare? Răspunde cu DA! 😊</div>
+            <div class="wa-time">10:00 ✓✓</div>
+          </div>
+        </div>
+        <div style="padding:0 16px 14px;">
+          <div class="campaign-stat"><span class="campaign-stat-label">Săptămâna asta</span><span class="campaign-stat-val">12 trimise</span></div>
+          <div class="campaign-stat"><span class="campaign-stat-label">Răspunsuri</span><span class="campaign-stat-val text-green">8 (67%)</span></div>
+          <div class="campaign-stat"><span class="campaign-stat-label">Venit generat</span><span class="campaign-stat-val text-accent">1.840 lei ↑</span></div>
+        </div>
+      </div>
+
+      <div class="card mt-12">
+        <div class="card-header">
+          <div>
+            <div class="card-title">Follow-up client nou</div>
+            <div class="card-sub">Automată · la 3 zile după prima vizită</div>
+          </div>
+          <span class="tag tag-green">Welcome</span>
+        </div>
+        <div style="padding:14px 16px 4px;">
+          <div class="wa-bg">
+            <div class="wa-bubble">Mulțumesc că ai ales Aurora, Cristina! 🌸 La a doua programare ai 10% reducere. Te aștept! — Maria</div>
+            <div class="wa-time">14:20 ✓✓</div>
+          </div>
+        </div>
+        <div style="padding:0 16px 14px;">
+          <div class="campaign-stat"><span class="campaign-stat-label">Luna asta</span><span class="campaign-stat-val">12 clienți noi</span></div>
+          <div class="campaign-stat"><span class="campaign-stat-label">Au revenit</span><span class="campaign-stat-val text-green">9 (75%)</span></div>
+        </div>
+      </div>
+
+      <div style="background:var(--surface);border-radius:var(--r-lg);padding:24px;text-align:center;box-shadow:var(--shadow-sm);margin-top:12px;border:1.5px dashed var(--line-strong);">
+        <div style="font-size:16px;font-weight:700;margin-bottom:6px;letter-spacing:-0.3px;">Creează o campanie nouă</div>
+        <div style="font-size:13px;color:var(--muted);margin-bottom:14px;">Aurora îți sugerează campanii bazate pe comportamentul clienților tăi</div>
+        <button class="btn btn-primary">Creează cu Aurora →</button>
+      </div>
+    </div>
+    <div class="section-spacer"></div>
+  </div>
+
+  <!-- ============ ANALYTICS ============ -->
+  <div class="view" id="view-analytics">
+    <div class="page-header">
+      <div>
+        <div class="page-meta">Date și tendințe</div>
+        <div class="page-title">Cifrele <em>tale</em></div>
+        <div class="page-sub">Înțelege ce funcționează. Decide cu date reale.</div>
+      </div>
+      <div class="page-actions">
+        <select class="form-input" style="width:auto;padding:8px 12px;font-size:13px;"><option>Ultimele 30 zile</option><option>Ultimele 90 zile</option><option>Anul curent</option></select>
+      </div>
+    </div>
+
+    <div class="kpi-grid">
+      <div class="kpi kpi-green">
+        <div class="kpi-label">Venit total</div>
+        <div class="kpi-value">34.280 <span class="kpi-unit">lei</span></div>
+        <div class="kpi-delta up">↑ 18% vs luna trecută</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-label">Neprezentări</div>
+        <div class="kpi-value">3<span class="kpi-unit">%</span></div>
+        <div class="kpi-delta down-good">↓ 27% (era 30%)</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-label">Val. medie / vizită</div>
+        <div class="kpi-value">186 <span class="kpi-unit">lei</span></div>
+        <div class="kpi-delta up">↑ 8%</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-label">Retenție 90 zile</div>
+        <div class="kpi-value">72<span class="kpi-unit">%</span></div>
+        <div class="kpi-delta up">↑ 14%</div>
+      </div>
+    </div>
+
+    <div class="group-label">Venit pe zile — ultimele 30 zile</div>
+    <div class="section">
+      <div class="card">
+        <div class="chart-wrap">
+          <svg id="chartLine" viewBox="0 0 600 180" style="width:100%;height:180px;">
+            <defs>
+              <linearGradient id="lineGrad" x1="0" x2="0" y1="0" y2="1">
+                <stop offset="0%" stop-color="#C4603D" stop-opacity="0.25"/>
+                <stop offset="100%" stop-color="#C4603D" stop-opacity="0"/>
+              </linearGradient>
+            </defs>
+            <path id="linePath" fill="none" stroke="#C4603D" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+            <path id="lineArea" fill="url(#lineGrad)"/>
+          </svg>
+        </div>
+      </div>
+    </div>
+
+    <div class="group-label">Top servicii</div>
+    <div class="section">
+      <div class="card">
+        <div style="padding:4px 16px 12px;">
+          <div class="campaign-stat"><span class="campaign-stat-label">Vopsit + Tuns</span><span class="campaign-stat-val">42%</span></div>
+          <div class="campaign-stat"><span class="campaign-stat-label">Highlights</span><span class="campaign-stat-val">21%</span></div>
+          <div class="campaign-stat"><span class="campaign-stat-label">Manichiură</span><span class="campaign-stat-val">15%</span></div>
+          <div class="campaign-stat"><span class="campaign-stat-label">Keratină</span><span class="campaign-stat-val">12%</span></div>
+          <div class="campaign-stat"><span class="campaign-stat-label">Alte servicii</span><span class="campaign-stat-val">10%</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="section-spacer"></div>
+  </div>
+
+  <!-- ============ TEMPLATES ============ -->
+  <div class="view" id="view-templates">
+    <div class="page-header">
+      <div>
+        <div class="page-meta">Configurare</div>
+        <div class="page-title">Mesaje <em>șablon</em></div>
+        <div class="page-sub">Editează textele trimise automat. Folosește {nume}, {ora}, {data}, {serviciu}.</div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="template-card">
+        <div class="template-head">
+          <div>
+            <div class="template-name">Confirmare standard</div>
+            <div class="template-trigger">Trimis cu 24h înainte</div>
+          </div>
+          <button class="btn btn-secondary btn-sm">Editează</button>
+        </div>
+        <div class="template-text">Bună, <span class="token">{nume}</span>! 😊 Confirmăm programarea ta de mâine la Salon Aurora: <span class="token">{ora}</span> — <span class="token">{serviciu}</span>. Răspunde cu DA dacă vii, sau anunță-mă dacă nu mai poți. ✂️</div>
+      </div>
+
+      <div class="template-card mt-12">
+        <div class="template-head">
+          <div>
+            <div class="template-name">Cerere avans</div>
+            <div class="template-trigger">Servicii peste 200 lei sau clienți cu istoric de neprezentare</div>
+          </div>
+          <button class="btn btn-secondary btn-sm">Editează</button>
+        </div>
+        <div class="template-text">Bună, <span class="token">{nume}</span>. Pentru programarea de <span class="token">{data}</span> la <span class="token">{ora}</span> (<span class="token">{serviciu}</span>) am nevoie de un avans de <span class="token">{avans}</span> lei. Poți plăti pe Revolut sau prin link: <span class="token">{link_plata}</span>. Se scade din prețul final.</div>
+      </div>
+
+      <div class="template-card mt-12">
+        <div class="template-head">
+          <div>
+            <div class="template-name">Follow-up fără răspuns</div>
+            <div class="template-trigger">Dacă nu răspunde în 12h</div>
+          </div>
+          <button class="btn btn-secondary btn-sm">Editează</button>
+        </div>
+        <div class="template-text">Bună, <span class="token">{nume}</span>. Revin pentru programarea de <span class="token">{data}</span> la <span class="token">{ora}</span>. Dacă nu confirm până diseară, voi elibera intervalul. Te rog să-mi confirmi rapid! 💛</div>
+      </div>
+
+      <div class="template-card mt-12">
+        <div class="template-head">
+          <div>
+            <div class="template-name">Reactivare 60+ zile</div>
+            <div class="template-trigger">Automat la 60 zile fără vizită</div>
+          </div>
+          <button class="btn btn-secondary btn-sm">Editează</button>
+        </div>
+        <div class="template-text">Bună, <span class="token">{nume}</span>! 💛 Ne-am amintit de tine — au trecut <span class="token">{zile}</span> zile. Îți oferim 15% reducere valabilă 14 zile. Te aștept! — Salonul Aurora</div>
+      </div>
+
+      <div class="template-card mt-12">
+        <div class="template-head">
+          <div>
+            <div class="template-name">La mulți ani</div>
+            <div class="template-trigger">În ziua de naștere</div>
+          </div>
+          <button class="btn btn-secondary btn-sm">Editează</button>
+        </div>
+        <div class="template-text">La mulți ani, <span class="token">{nume}</span>! 🎂 Îți oferim un tratament de păr GRATUIT la următoarea programare. Te aștept! — Salonul Aurora</div>
+      </div>
+
+      <div class="template-card mt-12">
+        <div class="template-head">
+          <div>
+            <div class="template-name">Mulțumire după vizită</div>
+            <div class="template-trigger">La 2 ore după programare</div>
+          </div>
+          <button class="btn btn-secondary btn-sm">Editează</button>
+        </div>
+        <div class="template-text">Mulțumesc că ai trecut pe la Aurora, <span class="token">{nume}</span>! 🌸 Dacă ai un minut, lasă-mi un review: <span class="token">{link_google}</span>. Te aștept și data viitoare! — Maria</div>
+      </div>
+    </div>
+    <div class="section-spacer"></div>
+  </div>
+
+  <!-- ============ SETTINGS ============ -->
+  <div class="view" id="view-settings">
+    <div class="page-header">
+      <div>
+        <div class="page-meta">Configurare</div>
+        <div class="page-title">Setări <em>salon</em></div>
+      </div>
+    </div>
+
+    <div class="group-label">Informații salon</div>
+    <div class="section">
+      <div class="settings-card" style="padding:16px;">
+        <div class="form-group form-grid-2">
+          <div>
+            <label class="form-label">Nume salon</label>
+            <input class="form-input" value="Salon Aurora">
+          </div>
+          <div>
+            <label class="form-label">Telefon</label>
+            <input class="form-input" value="0722 123 456">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Adresă</label>
+          <input class="form-input" value="Strada Florilor 12, București">
+        </div>
+        <div class="form-group" style="margin-bottom:0;">
+          <label class="form-label">Link Google Reviews</label>
+          <input class="form-input" value="https://g.page/r/salon-aurora">
+        </div>
+      </div>
+    </div>
+
+    <div class="group-label">Automatizări</div>
+    <div class="section">
+      <div class="settings-card">
+        <div class="toggle-row">
+          <div class="toggle-info">
+            <div class="toggle-label">Confirmare cu 24h înainte</div>
+            <div class="toggle-desc">Mesaj zilnic, ora 10:00</div>
+          </div>
+          <div class="ios-toggle on" onclick="this.classList.toggle('on')"></div>
+        </div>
+        <div class="toggle-row">
+          <div class="toggle-info">
+            <div class="toggle-label">Cerere avans automată</div>
+            <div class="toggle-desc">Servicii lungi sau clienți noi</div>
+          </div>
+          <div class="ios-toggle on" onclick="this.classList.toggle('on')"></div>
+        </div>
+        <div class="toggle-row">
+          <div class="toggle-info">
+            <div class="toggle-label">Follow-up fără răspuns</div>
+            <div class="toggle-desc">A doua oară după 12h fără reply</div>
+          </div>
+          <div class="ios-toggle on" onclick="this.classList.toggle('on')"></div>
+        </div>
+        <div class="toggle-row">
+          <div class="toggle-info">
+            <div class="toggle-label">Mulțumire după vizită</div>
+            <div class="toggle-desc">+ cerere review Google la 2h</div>
+          </div>
+          <div class="ios-toggle on" onclick="this.classList.toggle('on')"></div>
+        </div>
+        <div class="toggle-row">
+          <div class="toggle-info">
+            <div class="toggle-label">Reactivare inactivi (60 zile)</div>
+            <div class="toggle-desc">Mesaj automat cu reducere 15%</div>
+          </div>
+          <div class="ios-toggle on" onclick="this.classList.toggle('on')"></div>
+        </div>
+        <div class="toggle-row">
+          <div class="toggle-info">
+            <div class="toggle-label">La mulți ani automat</div>
+            <div class="toggle-desc">În ziua de naștere, cu cadou</div>
+          </div>
+          <div class="ios-toggle on" onclick="this.classList.toggle('on')"></div>
+        </div>
+        <div class="toggle-row">
+          <div class="toggle-info">
+            <div class="toggle-label">Reminder periodic întreținere</div>
+            <div class="toggle-desc">La 5 săpt. vopsit / 4 săpt. tuns</div>
+          </div>
+          <div class="ios-toggle on" onclick="this.classList.toggle('on')"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="group-label">Abonament</div>
+    <div class="section">
+      <div class="sub-card">
+        <div style="font-size:11px;font-weight:700;opacity:0.55;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:6px;">Aurora Premium</div>
+        <div><span class="sub-price">149 lei</span><span class="sub-unit"> / lună</span></div>
+        <div class="sub-next">Următoarea factură: 21 iunie 2026</div>
+        <div class="sub-actions">
+          <button class="sub-btn">Vezi factura</button>
+          <button class="sub-btn">Schimbă plan</button>
+        </div>
+      </div>
+    </div>
+    <div class="section-spacer"></div>
+  </div>
+
+</div><!-- end .content -->
+
+<!-- ===== BOTTOM NAV (Mobile) ===== -->
+<nav class="bottomnav">
+  <button class="nav-tab active" data-view="dashboard">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="9" rx="1"/><rect x="14" y="3" width="7" height="5" rx="1"/><rect x="14" y="12" width="7" height="9" rx="1"/><rect x="3" y="16" width="7" height="5" rx="1"/></svg>
+    <span class="nav-tab-label">Panou</span>
+  </button>
+  <button class="nav-tab" data-view="appointments">
+    <div style="position:relative;display:inline-block;">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+      <span class="nav-dot" id="apptDot"></span>
+    </div>
+    <span class="nav-tab-label">Programări</span>
+  </button>
+  <button class="nav-tab" data-view="clients">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+    <span class="nav-tab-label">Clienți</span>
+  </button>
+  <button class="nav-tab" data-view="campaigns">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l18-8-8 18-2-8-8-2z"/></svg>
+    <span class="nav-tab-label">Campanii</span>
+  </button>
+  <button class="nav-tab" data-view="settings">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+    <span class="nav-tab-label">Setări</span>
+  </button>
+</nav>
+
+<!-- ===== DETAIL PANEL ===== -->
+<div class="detail-panel" id="detailPanel">
+  <div class="detail-topbar">
+    <button class="detail-close-btn" onclick="closeDetail()">
+      <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg>
+    </button>
+    <div class="detail-panel-title" id="detailPanelTitle">Detalii client</div>
+  </div>
+  <div class="detail-body">
+    <div id="detailContent"></div>
+    <div id="detailBody"></div>
+  </div>
+</div>
+
+<!-- ===== MODAL: Add Appointment ===== -->
+<div class="overlay" id="overlay-addAppt">
+  <div class="modal">
+    <div class="modal-drag"></div>
+    <div class="modal-header">
+      <div class="modal-title">Programare nouă</div>
+      <button class="modal-close" onclick="closeModal()">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="form-group form-grid-2">
+        <div>
+          <label class="form-label">Client</label>
+          <input class="form-input" id="f_name" placeholder="Nume complet">
+        </div>
+        <div>
+          <label class="form-label">Telefon</label>
+          <input class="form-input" id="f_phone" placeholder="07XX XXX XXX">
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Serviciu</label>
+        <select class="form-select" id="f_service">
+          <option>Tuns + Spălat</option>
+          <option>Vopsit rădăcină</option>
+          <option>Vopsit complet</option>
+          <option>Highlights</option>
+          <option>Keratină</option>
+          <option>Manichiură</option>
+          <option>Pedichiură</option>
+          <option>Coafat ocazie</option>
+        </select>
+      </div>
+      <div class="form-group form-grid-3">
+        <div>
+          <label class="form-label">Data</label>
+          <input class="form-input" type="date" id="f_date">
+        </div>
+        <div>
+          <label class="form-label">Ora</label>
+          <input class="form-input" type="time" id="f_time" value="10:00">
+        </div>
+        <div>
+          <label class="form-label">Durată (min)</label>
+          <input class="form-input" type="number" id="f_dur" value="60">
+        </div>
+      </div>
+      <div class="form-group form-grid-2">
+        <div>
+          <label class="form-label">Preț (lei)</label>
+          <input class="form-input" type="number" id="f_price" value="150">
+        </div>
+        <div>
+          <label class="form-label">Avans (lei)</label>
+          <input class="form-input" type="number" id="f_deposit" value="50">
+        </div>
+      </div>
+      <div class="form-group form-grid-2">
+        <label class="form-checkbox-row">
+          <input type="checkbox" id="f_new">
+          <span class="form-checkbox-label">Client nou</span>
+        </label>
+        <label class="form-checkbox-row">
+          <input type="checkbox" id="f_noshow">
+          <span class="form-checkbox-label">A mai lipsit</span>
+        </label>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-secondary btn-full" onclick="closeModal()">Anulează</button>
+      <button class="btn btn-primary btn-full" onclick="saveAppt()">Salvează</button>
+    </div>
+  </div>
+</div>
+
+<!-- ===== MODAL: WhatsApp ===== -->
+<div class="overlay" id="overlay-wa">
+  <div class="modal">
+    <div class="modal-drag"></div>
+    <div class="modal-header">
+      <div>
+        <div class="modal-title" id="waTitle">Trimite mesaj</div>
+        <div style="font-size:13px;color:var(--muted);margin-top:2px;" id="waSub"></div>
+      </div>
+      <button class="modal-close" onclick="closeModal()">✕</button>
+    </div>
+    <div class="modal-body">
+      <div style="font-size:12px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:0.05em;margin-bottom:8px;">Previzualizare mesaj</div>
+      <div class="wa-bg">
+        <div class="wa-bubble" id="waMessage"></div>
+        <div class="wa-time">acum ✓</div>
+      </div>
+      <div style="font-size:12px;color:var(--muted);margin-top:8px;line-height:1.5;">💡 Poți edita mesajul direct în WhatsApp înainte să-l trimiți.</div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-secondary btn-full" onclick="closeModal()">Anulează</button>
+      <a class="btn btn-wa btn-full" id="waLink" target="_blank" rel="noopener" style="text-decoration:none;font-weight:700;font-size:15px;">
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M17.5 14.4c-.3-.2-1.8-.9-2-1-.3-.1-.5-.2-.7.1-.2.3-.8 1-1 1.2-.2.2-.4.2-.7.1-.3-.2-1.2-.5-2.3-1.4-.9-.8-1.4-1.7-1.6-2-.2-.3 0-.5.1-.6.1-.1.3-.4.4-.5.1-.2.2-.3.3-.5.1-.2 0-.4 0-.5 0-.2-.7-1.6-.9-2.2-.3-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.5s1.1 2.9 1.2 3c.2.2 2.1 3.2 5.1 4.5.7.3 1.3.5 1.7.6.7.2 1.4.2 1.9.1.6-.1 1.8-.7 2-1.4.3-.7.3-1.3.2-1.4-.1-.1-.3-.2-.6-.4M12 0C5.4 0 0 5.4 0 12c0 2.1.6 4.2 1.6 6L0 24l6.3-1.6c1.7 1 3.7 1.5 5.7 1.5 6.6 0 12-5.4 12-12S18.6 0 12 0"/></svg>
+        Deschide WhatsApp
+      </a>
+    </div>
+  </div>
+</div>
+
+<!-- ===== TOAST ===== -->
+<div class="toast" id="toast"></div>
+
+<script src="app.js"></script>
+</body>
+</html>
