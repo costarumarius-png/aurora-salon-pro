@@ -40,7 +40,46 @@ function fmtDate(d) { return d.toLocaleDateString('ro-RO', { weekday: 'long', da
 function fmtDateShort(d) { return d.toLocaleDateString('ro-RO', { day: 'numeric', month: 'long' }); }
 function capitalize(s) { return s.charAt(0).toUpperCase() + s.slice(1); }
 
-const SALON = 'Salon Aurora';
+let SALON = 'Salon Aurora';
+
+// ========== SETTINGS ==========
+const SETTINGS_KEY = 'aurora-settings';
+let salonSettings = {
+  salonName:  'Salon Aurora',
+  ownerName:  'Maria',
+  phone:      '0722 123 456',
+  address:    'Strada Florilor 12, București',
+  googleLink: 'https://g.page/r/salon-aurora',
+};
+
+function loadSettings() {
+  const saved = localStorage.getItem(SETTINGS_KEY);
+  if (saved) { try { salonSettings = { ...salonSettings, ...JSON.parse(saved) }; } catch(e) {} }
+  applySettings();
+}
+
+function applySettings() {
+  SALON = salonSettings.salonName;
+  const ownerEl = document.getElementById('ownerName');
+  if (ownerEl) ownerEl.textContent = salonSettings.ownerName;
+  const sName = document.getElementById('s_name');   if (sName)   sName.value   = salonSettings.salonName;
+  const sOwner= document.getElementById('s_owner');  if (sOwner)  sOwner.value  = salonSettings.ownerName;
+  const sPhone= document.getElementById('s_phone');  if (sPhone)  sPhone.value  = salonSettings.phone;
+  const sAddr = document.getElementById('s_address');if (sAddr)   sAddr.value   = salonSettings.address;
+  const sGoogle=document.getElementById('s_google'); if (sGoogle) sGoogle.value = salonSettings.googleLink;
+}
+
+function saveSettings() {
+  const v = (id) => (document.getElementById(id)?.value.trim() || '');
+  salonSettings.salonName  = v('s_name')    || salonSettings.salonName;
+  salonSettings.ownerName  = v('s_owner')   || salonSettings.ownerName;
+  salonSettings.phone      = v('s_phone')   || salonSettings.phone;
+  salonSettings.address    = v('s_address') || salonSettings.address;
+  salonSettings.googleLink = v('s_google')  || salonSettings.googleLink;
+  localStorage.setItem(SETTINGS_KEY, JSON.stringify(salonSettings));
+  applySettings();
+  showToast('Setări salvate ✓');
+}
 
 const appointments = [
   { id:1, name:'Maria Ionescu',      phone:'0722 100 200', service:'Vopsit + Tunsoare',        date:isoDate(TOMORROW), time:'09:00', duration:90,  price:280, deposit:80,  status:'confirmed',    newClient:false, previousNoShow:false, visits:14, totalSpent:3820, lastVisit:'12 apr 2026' },
@@ -512,8 +551,8 @@ function showDetail(a) {
         <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><path d="M17.5 14.4c-.3-.2-1.8-.9-2-1-.3-.1-.5-.2-.7.1-.2.3-.8 1-1 1.2-.2.2-.4.2-.7.1-.3-.2-1.2-.5-2.3-1.4-.9-.8-1.4-1.7-1.6-2-.2-.3 0-.5.1-.6.1-.1.3-.4.4-.5.1-.2.2-.3.3-.5.1-.2 0-.4 0-.5 0-.2-.7-1.6-.9-2.2-.3-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.5s1.1 2.9 1.2 3c.2.2 2.1 3.2 5.1 4.5.7.3 1.3.5 1.7.6.7.2 1.4.2 1.9.1.6-.1 1.8-.7 2-1.4.3-.7.3-1.3.2-1.4-.1-.1-.3-.2-.6-.4M12 0C5.4 0 0 5.4 0 12c0 2.1.6 4.2 1.6 6L0 24l6.3-1.6c1.7 1 3.7 1.5 5.7 1.5 6.6 0 12-5.4 12-12S18.6 0 12 0"/></svg>
         WhatsApp
       </button>
-      <button class="btn btn-secondary btn-sm">📞 Sună</button>
-      <button class="btn btn-secondary btn-sm">✏️ Editează</button>
+      <a class="btn btn-secondary btn-sm" href="tel:${a.phone}">📞 Sună</a>
+      <button class="btn btn-secondary btn-sm" onclick="showToast('Editare disponibilă în curând')">✏️ Editează</button>
     </div>`;
 
   const visits = a.visits || 0;
@@ -576,7 +615,7 @@ function showDetail(a) {
     <div class="detail-section">
       <div class="detail-section-label">Recomandare Aurora</div>
       <div style="background:var(--orange-bg);border:0.5px solid rgba(255,149,0,0.2);border-radius:var(--r);padding:12px;font-size:13px;line-height:1.5;color:var(--ink-2);">
-        💡 Această clientă revine la ~5 săptămâni pentru vopsit. Ultima vizită a fost acum ${visits > 0 ? Math.floor(Math.random() * 14 + 28) : 0} zile. Programează un reminder proactiv.
+        💡 Această clientă revine la ~5 săptămâni pentru vopsit. Ultima vizită a fost acum ${(() => { const c = clients.find(x => x.name === a.name); return c ? c.daysSince : (visits > 0 ? 35 : 0); })()} zile. Programează un reminder proactiv.
       </div>
     </div>`;
 
@@ -603,6 +642,7 @@ function showToast(msg) {
   document.getElementById('tomorrowLabel').textContent =
     `${capitalize(fmtDate(TOMORROW))} · ${appointments.length} programări`;
 
+  loadSettings();
   renderDashboard();
   renderTopClients();
   renderRevenue();

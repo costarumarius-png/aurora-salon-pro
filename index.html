@@ -88,7 +88,7 @@
     <div class="page-header">
       <div>
         <div class="page-meta" id="dateLabel">Joi, 22 mai</div>
-        <div class="page-title">Bună dimineața, <em>Maria</em></div>
+        <div class="page-title">Bună dimineața, <em id="ownerName">Maria</em></div>
         <div class="page-sub">Panoul tău de astăzi — totul la un click distanță.</div>
       </div>
       <div class="page-actions">
@@ -235,7 +235,7 @@
       </div>
       <div class="page-actions">
         <input class="form-input" placeholder="Caută..." style="width:180px;padding:8px 12px;font-size:14px;" oninput="filterClients(this.value)">
-        <button class="btn btn-primary btn-sm">+ Client nou</button>
+        <button class="btn btn-primary btn-sm" onclick="openModal('addAppt')">+ Client nou</button>
       </div>
     </div>
 
@@ -398,7 +398,7 @@
       <div style="background:var(--surface);border-radius:var(--r-lg);padding:24px;text-align:center;box-shadow:var(--shadow-sm);margin-top:12px;border:1.5px dashed var(--line-strong);">
         <div style="font-size:16px;font-weight:700;margin-bottom:6px;letter-spacing:-0.3px;">Creează o campanie nouă</div>
         <div style="font-size:13px;color:var(--muted);margin-bottom:14px;">Aurora îți sugerează campanii bazate pe comportamentul clienților tăi</div>
-        <button class="btn btn-primary">Creează cu Aurora →</button>
+        <button class="btn btn-primary" onclick="showToast('Funcție disponibilă în versiunea cu date reale ✨')">Creează cu Aurora →</button>
       </div>
     </div>
     <div class="section-spacer"></div>
@@ -478,8 +478,8 @@
     <div class="page-header">
       <div>
         <div class="page-meta">Configurare</div>
-        <div class="page-title">Mesaje <em>șablon</em></div>
-        <div class="page-sub">Editează textele trimise automat. Folosește {nume}, {ora}, {data}, {serviciu}.</div>
+        <div class="page-title">Mesaje <em>automate</em></div>
+        <div class="page-sub">Textele trimise automat clienților tăi — apasă Editează pentru a personaliza.</div>
       </div>
     </div>
 
@@ -492,7 +492,7 @@
           </div>
           <button class="btn btn-secondary btn-sm">Editează</button>
         </div>
-        <div class="template-text">Bună, <span class="token">{nume}</span>! 😊 Confirmăm programarea ta de mâine la Salon Aurora: <span class="token">{ora}</span> — <span class="token">{serviciu}</span>. Răspunde cu DA dacă vii, sau anunță-mă dacă nu mai poți. ✂️</div>
+        <div class="template-text">Bună, <strong>Ana</strong>! 😊 Confirmăm programarea ta de mâine la Salon Aurora: <strong>10:00</strong> — <strong>Vopsit</strong>. Răspunde cu DA dacă vii, sau anunță-mă dacă nu mai poți. ✂️</div>
       </div>
 
       <div class="template-card mt-12">
@@ -503,7 +503,7 @@
           </div>
           <button class="btn btn-secondary btn-sm">Editează</button>
         </div>
-        <div class="template-text">Bună, <span class="token">{nume}</span>. Pentru programarea de <span class="token">{data}</span> la <span class="token">{ora}</span> (<span class="token">{serviciu}</span>) am nevoie de un avans de <span class="token">{avans}</span> lei. Poți plăti pe Revolut sau prin link: <span class="token">{link_plata}</span>. Se scade din prețul final.</div>
+        <div class="template-text">Bună, <strong>Ana</strong>. Pentru programarea de <strong>23 mai</strong> la <strong>10:00</strong> (Highlights) am nevoie de un avans de <strong>120 lei</strong>. Poți plăti pe Revolut sau prin link. Se scade din prețul final.</div>
       </div>
 
       <div class="template-card mt-12">
@@ -514,7 +514,7 @@
           </div>
           <button class="btn btn-secondary btn-sm">Editează</button>
         </div>
-        <div class="template-text">Bună, <span class="token">{nume}</span>. Revin pentru programarea de <span class="token">{data}</span> la <span class="token">{ora}</span>. Dacă nu confirm până diseară, voi elibera intervalul. Te rog să-mi confirmi rapid! 💛</div>
+        <div class="template-text">Bună, <strong>Ana</strong>. Revin pentru programarea de <strong>23 mai</strong> la <strong>10:00</strong>. Dacă nu confirm până diseară, voi elibera intervalul. Te rog să-mi confirmi rapid! 💛</div>
       </div>
 
       <div class="template-card mt-12">
@@ -525,7 +525,7 @@
           </div>
           <button class="btn btn-secondary btn-sm">Editează</button>
         </div>
-        <div class="template-text">Bună, <span class="token">{nume}</span>! 💛 Ne-am amintit de tine — au trecut <span class="token">{zile}</span> zile. Îți oferim 15% reducere valabilă 14 zile. Te aștept! — Salonul Aurora</div>
+        <div class="template-text">Bună, <strong>Ana</strong>! 💛 Ne-am amintit de tine — au trecut <strong>65 de zile</strong>. Îți oferim 15% reducere valabilă 14 zile. Te aștept! — Salonul Aurora</div>
       </div>
 
       <div class="template-card mt-12">
@@ -536,7 +536,7 @@
           </div>
           <button class="btn btn-secondary btn-sm">Editează</button>
         </div>
-        <div class="template-text">La mulți ani, <span class="token">{nume}</span>! 🎂 Îți oferim un tratament de păr GRATUIT la următoarea programare. Te aștept! — Salonul Aurora</div>
+        <div class="template-text">La mulți ani, <strong>Ana</strong>! 🎂 Îți oferim un tratament de păr GRATUIT la următoarea programare. Te aștept! — Salonul Aurora</div>
       </div>
 
       <div class="template-card mt-12">
@@ -547,7 +547,7 @@
           </div>
           <button class="btn btn-secondary btn-sm">Editează</button>
         </div>
-        <div class="template-text">Mulțumesc că ai trecut pe la Aurora, <span class="token">{nume}</span>! 🌸 Dacă ai un minut, lasă-mi un review: <span class="token">{link_google}</span>. Te aștept și data viitoare! — Maria</div>
+        <div class="template-text">Mulțumesc că ai trecut pe la Aurora, <strong>Ana</strong>! 🌸 Dacă ai un minut, lasă-mi un review pe Google — link-ul e mai jos. Te aștept și data viitoare! — Maria</div>
       </div>
     </div>
     <div class="section-spacer"></div>
@@ -568,21 +568,28 @@
         <div class="form-group form-grid-2">
           <div>
             <label class="form-label">Nume salon</label>
-            <input class="form-input" value="Salon Aurora">
+            <input class="form-input" id="s_name" value="Salon Aurora">
           </div>
           <div>
-            <label class="form-label">Telefon</label>
-            <input class="form-input" value="0722 123 456">
+            <label class="form-label">Proprietar</label>
+            <input class="form-input" id="s_owner" value="Maria">
           </div>
         </div>
-        <div class="form-group">
+        <div class="form-group form-grid-2">
+          <div>
+            <label class="form-label">Telefon</label>
+            <input class="form-input" id="s_phone" value="0722 123 456">
+          </div>
+          <div>
+            <label class="form-label">Link Google Reviews</label>
+            <input class="form-input" id="s_google" value="https://g.page/r/salon-aurora">
+          </div>
+        </div>
+        <div class="form-group" style="margin-bottom:16px;">
           <label class="form-label">Adresă</label>
-          <input class="form-input" value="Strada Florilor 12, București">
+          <input class="form-input" id="s_address" value="Strada Florilor 12, București">
         </div>
-        <div class="form-group" style="margin-bottom:0;">
-          <label class="form-label">Link Google Reviews</label>
-          <input class="form-input" value="https://g.page/r/salon-aurora">
-        </div>
+        <button class="btn btn-primary btn-full" onclick="saveSettings()">Salvează informații</button>
       </div>
     </div>
 
