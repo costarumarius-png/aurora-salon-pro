@@ -1,4 +1,4 @@
-# Aurora Salon OS
+# Zenora — Salon OS
 
 Mini-aplicație mobilă pentru managementul unui salon de înfrumusețare.
 
